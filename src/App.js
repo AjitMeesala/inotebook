@@ -26,7 +26,7 @@ function App() {
     <>
       <NoteState>
         <Router>
-          <Navbar />
+          <Navbar showAlert={showAlert} />
           <Alert alert={alert} />
           <div className="container mt-5">
             <Routes>

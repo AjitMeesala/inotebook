@@ -9,32 +9,35 @@ const NoteState = (props) => {
 
   // get all note
   const getNotes = async () => {
-    //api call
-    const response = await fetch(`${host}fetchAllNotes`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "auth-token": localStorage.getItem('authToken')
-      },
-    });
+    if (localStorage.getItem("authToken")) {
+      //api call
+      const response = await fetch(`${host}fetchAllNotes`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": localStorage.getItem("authToken"),
+        },
+      });
 
-    const json = await response.json();
-    setNotes(json);
+      const json = await response.json();
+      setNotes(json);
+    }
   };
 
   // add a note
   const addNote = async (title, description, tag) => {
     //api call
-    const response = await fetch(`${host}addNote`, {
+    //const response = 
+    await fetch(`${host}addNote`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "auth-token": localStorage.getItem('authToken')
+        "auth-token": localStorage.getItem("authToken"),
       },
       body: JSON.stringify({ title, description, tag }),
     });
 
-    const json = await response.json();
+    // const json = await response.json();
 
     //logic to add a note on client side
     getNotes();
@@ -43,15 +46,16 @@ const NoteState = (props) => {
   // delete a note
   const deleteNote = async (id) => {
     //api call
-    const response = await fetch(`${host}deleteNote/${id}`, {
+    //const response = 
+    await fetch(`${host}deleteNote/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        "auth-token": localStorage.getItem('authToken')
+        "auth-token": localStorage.getItem("authToken"),
       },
     });
 
-    const json = await response.json();
+    // const json = await response.json();
 
     //logic to delete on client side
     const newNotes = notes.filter((note) => {
@@ -63,16 +67,17 @@ const NoteState = (props) => {
   // edit a note
   const editNote = async (id, title, description, tag) => {
     //api call
-    const response = await fetch(`${host}updateNote/${id}`, {
+    // const response = 
+    await fetch(`${host}updateNote/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        "auth-token": localStorage.getItem('authToken')
+        "auth-token": localStorage.getItem("authToken"),
       },
       body: JSON.stringify({ title, description, tag }),
     });
 
-    const json = await response.json();
+    // const json = await response.json();
 
     let newNotes = JSON.parse(JSON.stringify(notes));
     //logic to edit on client side
