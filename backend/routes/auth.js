@@ -110,7 +110,7 @@ router.post(
 // Get loggedin user details using: POST "/api/auth/getuser". Login required
 router.post("/getUser", fetchUser, async (req, res) => {
   try {
-    userId = req.user.id;
+    const userId = req.user.id;
     const user = await User.findById(userId).select("-password");
     return res.send(user);
   } catch (error) {
