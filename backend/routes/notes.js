@@ -7,7 +7,18 @@ const { body, validationResult } = require("express-validator");
 // Fetch all notes using: GET "/api/notes/fetchAllNotes". Login required
 router.get("/fetchAllNotes", fetchUser, async (req, res) => {
   try {
-    const note = await Note.find({ user: req.user.id });
+    const notes = await Note.find({ user: req.user.id });
+    res.send(notes);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal server error");
+  }
+});
+
+// Fetch note by id using: GET "/api/notes/fetchNoteById". Login required
+router.get("/fetchNoteById/:id", fetchUser, async (req, res) => {
+  try {
+    const note = await Note.findById(req.params.id);
     res.send(note);
   } catch (error) {
     console.error(error.message);
